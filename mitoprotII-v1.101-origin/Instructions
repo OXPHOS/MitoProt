@@ -1,0 +1,183 @@
+
+
+MitoProt II for Unix is a  free software permitting the
+study and prediction of mitochondrion-related proteins. The software has been
+compiled on Sun Sparcstation with Gnat compiler. Sources are available
+to install on other platform.
+
+If you use it to publish anything, we would be pleased if you cite it 
+among your references:
+
+MitoProt 1.0 [studies about mitochondrial targeting sequences (MTSs)]
+M. G. Claros (1995) "MitoProt, a Macintosh application for studying
+mitochondrial proteins". Comput. Applic. Biosci. 11, 441-447.
+
+MitoProt II (prediction of MTS and mitochondrial proteins)
+M.G. Claros, P. Vincens. "Computational method to predict
+mitochondrial proteins and their targeting sequences". Eur. J.
+Biochem., (1996) 241, 779-786.
+
+If you find this on-line help incomplete, we recommend that you read
+the previous cited articles.
+
+INSTALLATION
+
+Unless you grabbed a binary distribution of Mitoprot II, you must compile
+it for your specific platform.  In order to compile it, you must
+use an ADA 95 compiler. Gnat compiler is free available at 
+https://libre2.adacore.com/
+
+The step to install this program are:
+  1/ if it is not available on your system, install Gnat compiler. 
+
+  2/ uncompress and untar the distribution file. Command could be: 
+         zcat mitoprotII.tar.gz | tar xvf -
+     This operation creates a new directory called "mitoprot-vXX"
+
+  3/ compile the sources. You can use the Makefile available in the 
+     distribution or gnatmake utilities.
+     To use Makefile, first edit it and change the values of the variables
+     CC and OPT, next execute the command "make".
+     To use gnatmake, simply execute "gnatmake mitoprot"
+
+  4/ install the program using the command "make install" after to have
+     changed the value of the variable DEST in the Makefile 
+
+For a binary distribution, the only step is to install the executable
+To do it, you copy the binary file according to your hardware at a good
+place (for example, in the directory /usr/local/bin). The name of
+the binary file is mitoprot.<hardware>.<OS>. For instance,
+mitoprot.sparc_solaris_2.9 is a compiled version for Solaris 2.9 or +
+on Sparc systems.
+
+The files in the distribution are:
+  - README : general description of mitoprot
+  - Instructions : this file
+  - Makefile : the file to make the executable
+  - mitoprot.solaris : executable for Solaris plateforme
+  - mitoprot.adb : source main file
+  - mito_parameters.ads : source file describing parameters
+  - sequence_io.adb sequence_io.ads : source file to read sequences
+  - sequence_package.adb sequence_package.ads : source file to 
+                                                compute values of parameters
+  - strlib.adb strlib.ads : source of string utilities
+  - type_specifications.ads : source of general declaration
+
+
+USAGE
+
+The synopsis of mitoprot program is:
+
+  mitoprot [-f a|p|s] [-o filename] sequence_data_file
+
+  with:
+   -f is an option to define the format of the sequence file. This format
+      is specified with:
+         * a if ascii format (the first lines beginning with
+           the character ">" are ignored, the next lines contains sequence
+           in one letter code). It is compatible with fasta format.
+         * p if PIR format.
+         * s if Swissprot format.
+
+   -o generate a summary of the test displayed on one line in the
+      file "filename".
+
+   sequence_data_file is the name of the text file containing the
+   sequence. Results are writed in a file with the suffix ".mitoprot".
+
+SHORT PARAMETER DESCRIPTION
+
+   Mitoprot produces an output giving the values of the next parameters
+   o MitoProt calculates the N-terminal protein region that can support an
+     MTS and the cleavage site. Thus, it searches for the existence of two
+     close Glu or Asp within a determined distance. In that case, the 
+     searching window is limited to the residue immediately before the 
+     first Glu or Asp found. It is the ZoneTo parameter. 
+
+   o Coef20 reflects the composition of the first 20 sequence residues.
+
+   o CoefTot is a modification of Coef20 for taking into account
+     more residues and the length corresponding to the Targeting zone
+     (ZoneTo length).
+
+   o ChDiff (Charge difference) reflects the protein's isoelectric point. 
+     It is calculated in the entire sequence, representing the absolute 
+     number of acidic (D + E) and basic (K + R) residues. 
+
+   o KR and DE determines the number of Arg and Lys and Glu and Asp.
+
+   o CleavSit gives the position of a putative cleavage site.
+   
+   o H17 is calculated as the maximal local hydrophobicity of a segment.
+
+   o MesoH (Mesohydrophobicity) is the average regional hydrophobicity over
+     an extended region of the sequence.
+
+   o Hmax is the maximal hydrophobicity of 7 neighbouring residues on the
+     maximal alpha segment. The neighbouring residues are considered in the
+     helical wheel plot, not in the primary sequence. Seven residues are
+     the limit for the scanning window because this is the size of the
+     a-helix that is thought to interact with membranes. Alpha has 
+     successively the values: 75, 95, 100 and 105 degre. 
+
+   MitoProt provides four different hydrophobicity scales to added
+   flexibility, and to enable comparison of results with different
+   scales:
+   o GES.- Engelman,D.M., Steitz,T.A., Goldman,A. (1986) Ann. Rev.
+     Biophys. Biophys. Chem. 15, 321-530. This is recommended especially
+     for studies about hydrophobic proteins because it quantifies the free
+     energy of water-oil transfer for residues in an a-helical structure.
+     This reflects the circumstances in which amino acids appear in
+     proteins.
+   o KD.- Kyte,J., Doolittle,R.F. (1982) J. Mol. Biol. 157, 105-32. This
+     scale takes into account values from water-to-vapour energy transfers
+     and from internal-external distribution of amino acid residues.
+   o GVH1.- von Heijne,G. (1992) J. Mol. Biol. 225, 487-94. This is a
+     statistical scale obtained from the amino acid frequencies in the
+     central part of a transmembrane segment with respect to the
+     non-membranous stretches.
+   o ECS.- Eisenberg,D. (1984) Ann. Rev. Biochem. 53, 595-623. The
+     "Eisenberg's consensus Scale" was designed to mitigate the effects of
+     outlaying values in any one scale produced by the peculiarities of the
+     method, and is simply an average of four scales. It gives better
+     results than the OMH presented in older versions of MitoProt.
+   H17, MesoH, MuHD, Hmax are determined for these four scales.
+
+   The last part of the output is an array giving the prediction
+   that a nuclear gene is exported in the mitochondria (for DFM)
+   or chloroplast (for DFMC). These values are probabilities
+   determined using the result of a discriminant analysis. 
+       DFM  = Discriminant function for mitochondrial proteins.
+       DFMC = Discriminant function for mitochondrial and 
+              chloroplastic proteins. This function is not described
+              in any paper. It's like DFM, but chloroplastic proteins
+              are grouped with mitochondria proteins.
+
+
+   A complete description of these parameters and the used method 
+   to make the prediction is available in :
+ 
+     MitoProt 1.0 [studies about mitochondrial targeting sequences (MTSs)]
+     M. G. Claros (1995) "MitoProt, a Macintosh application for studying
+     mitochondrial proteins". Comput. Applic. Biosci. 11, 441-447.
+
+     MitoProt II (prediction of MTS and mitochondrial proteins)
+     M.G. Claros, P. Vincens. "Computational method to predict
+     mitochondrial proteins and their targeting sequences". Eur. J.
+     Biochem. 241, 779-786.
+ 
+DISCLAIMER
+MitoProt is supplied "as is": it comes without any warranties, express
+or implied, of any kind, including fitness for purpose and
+merchantability. The authors will not be liable for any damages
+whatsoever caused through the use of MitoProt, be they incidental,
+consequential or otherwise. You may find some bugs too, or things
+lacking which should be included. If you have comments, we would like
+to know what they are, but we do not assure that we can resolve all
+problems.
+
+Permission is hereby granted to anyone to redistribute Mitoprot under
+the "Mitoprot" name. We do not grant permission for the resale of Mitoprot,
+but we do grant permission for vendors to bundle Mitoprot free with other 
+software, or to charge a reasonable price for redistribution, provided 
+it is made clear that Mitoprot is free. 

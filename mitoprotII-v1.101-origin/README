@@ -1,0 +1,48 @@
+
+Application      MitoProt II
+First Release    October 1996
+Last Update      December 2006
+Version          1.101
+Description      It supplies a series of parameters that permit
+                 theoretical evaluation on mitochondrial targeting
+                 sequences and the importability.
+                 Finally, it provides the possibility to predict
+                 mitochondrial proteins harbouring targeting
+                 sequences.
+Authors          Mac version -> Manuel G. Claros (claros@uma.es)
+                 Unix version -> Pierre Vincens (vincens@biologie.ens.fr)
+Literature       M.G. Claros, P. Vincens. "Computational method to predict
+                 mitochondrial proteins and their targeting sequences". 
+                 Eur. J. Biochem., (1996) 241, 779-786.
+
+Notes            1- MitoProt II is available as a "basic"
+                   application, or as a "rapid" one. The rapid one
+                   needs 68020 processor, or later, and FPU. Both
+                   need system 6.0.2 or later. Older system versions have
+                   not been assayed, but perhaps do work well too.
+                 2- A version for unix machines is also available without
+                   using the graphic cabapilities.
+                 3- A mail server is available to test a sequence sending a
+                   message with the sequence to mitoprot@biologie.ens.fr
+                   You can send a message with help in the body to
+                   obtain instrutions.
+
+MitoProt II has been designed for Macintosh computers, using
+THINK Pascal 4.0.2. For unix machines it has been designed in
+ADA95 using the Gnat compiler.
+
+Although we have done our best to ensure that these softwares are error
+free, we are not responsible for any misfortune you may suffer whatsoever
+caused through the use of MitoProt, be they incidental, consequential or
+otherwise. So, MitoProt is supplied "as is": it comes without any
+warranties, expressed or implied, of any kind, including fitness for
+purpose and merchantibility. You may find some bugs too, or things
+lacking which should be included. If you have comments, we would like to
+know them, but we do not guarantee to be able to fix them. You can 
+distribute the software freely.
+
+Permission is hereby granted to anyone to redistribute Mitoprot under
+the "Mitoprot" name. We do not grant permission for the resale of Mitoprot,
+but we do grant permission for vendors to bundle Mitoprot free with other
+software, or to charge a reasonable price for redistribution, provided
+it is made clear that Mitoprot is free.
